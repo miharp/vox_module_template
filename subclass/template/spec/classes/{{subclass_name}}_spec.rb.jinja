@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+RSpec.describe '{{ answers.module_name }}::{{ subclass_name }}' do
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+      let(:pre_condition) { "include {{ answers.module_name }}" }
+
+      it { is_expected.to compile.with_all_deps }
+
+      context 'with manage_{{ subclass_name }} => false' do
+        let(:pre_condition) do
+          "class { '{{ answers.module_name }}': manage_{{ subclass_name }} => false }"
+        end
+
+        it { is_expected.to compile.with_all_deps }
+      end
+    end
+  end
+end

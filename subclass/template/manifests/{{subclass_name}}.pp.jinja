@@ -1,0 +1,13 @@
+# @summary Manages {{ answers.module_name }} {{ subclass_name }}
+#
+# This class is called from the {{ answers.module_name }} main class.
+# It is not intended to be used directly.
+#
+# @api private
+class {{ answers.module_name }}::{{ subclass_name }} {
+  assert_private()
+
+  if ${{ answers.module_name }}::manage_{{ subclass_name }} {
+    # Add resources here
+  }
+}

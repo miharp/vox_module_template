@@ -1,6 +1,7 @@
 ---
 _subdirectory: template
 _min_copier_version: "9.0.0"
+_answers_file: .copier-answers.yml
 _message_after_copy: |
   Your Puppet module '{{ module_name }}' has been created!
 
