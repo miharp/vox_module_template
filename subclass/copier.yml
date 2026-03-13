@@ -8,7 +8,7 @@ _external_data:
   answers: .copier-answers.yml
 
 _message_after_copy: |
-  Class '{{ answers.module_name }}::{{ subclass_name }}' scaffolded!
+  Class '{{ _external_data.answers.module_name }}::{{ subclass_name }}' scaffolded!
 
   Add to manifests/init.pp:
 
@@ -16,14 +16,14 @@ _message_after_copy: |
     Boolean $manage_{{ subclass_name }} = true,
 
     # 2. Contain the new class:
-    contain {{ answers.module_name }}::{{ subclass_name }}
+    contain {{ _external_data.answers.module_name }}::{{ subclass_name }}
 
     # 3. Insert into the ordering chain at the right position:
-    -> Class['{{ answers.module_name }}::{{ subclass_name }}']
+    -> Class['{{ _external_data.answers.module_name }}::{{ subclass_name }}']
 
   Add the default to data/common.yaml:
 
-    {{ answers.module_name }}::manage_{{ subclass_name }}: true
+    {{ _external_data.answers.module_name }}::manage_{{ subclass_name }}: true
 
 subclass_name:
   type: str
