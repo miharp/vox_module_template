@@ -1,0 +1,83 @@
+---
+_subdirectory: template
+_min_copier_version: "9.0.0"
+_message_after_copy: |
+  Your Puppet module '{{ module_name }}' has been created!
+
+  Next steps:
+    cd {{ puppet_forge_username }}-{{ module_name }}
+    bundle install
+    bundle exec rake validate lint spec
+
+# ---------------------------------------------------------------------------
+# Module identity
+# ---------------------------------------------------------------------------
+module_name:
+  type: str
+  help: "Module name (snake_case, e.g. 'apache', 'ntp')"
+  placeholder: "apache"
+  validator: >-
+    {% if not (module_name | regex_search('^[a-z][a-z0-9_]*$')) %}
+    Module name must be lowercase letters, numbers, and underscores, starting with a letter.
+    {% endif %}
+
+puppet_forge_username:
+  type: str
+  help: "Puppet Forge username or organization (e.g. 'puppetlabs')"
+  placeholder: "myorg"
+  validator: >-
+    {% if not (puppet_forge_username | regex_search('^[a-zA-Z][a-zA-Z0-9_-]*$')) %}
+    Must start with a letter and contain only letters, numbers, underscores, and hyphens.
+    {% endif %}
+
+module_author:
+  type: str
+  help: "Author full name"
+  default: "{{ puppet_forge_username }}"
+
+module_summary:
+  type: str
+  help: "One-line summary of what this module manages"
+  placeholder: "Manages the Apache HTTP server"
+
+module_description:
+  type: str
+  help: "Full description of the module (multi-line supported)"
+  default: "{{ module_summary }}"
+  multiline: true
+
+# ---------------------------------------------------------------------------
+# Versioning & publishing
+# ---------------------------------------------------------------------------
+module_version:
+  type: str
+  help: "Initial module version (semantic versioning)"
+  default: "0.1.0"
+
+module_license:
+  type: str
+  help: "Module license"
+  default: "Apache-2.0"
+  choices:
+    - "Apache-2.0"
+    - "MIT"
+    - "GPL-3.0"
+    - "proprietary"
+
+module_source_url:
+  type: str
+  help: "Source repository URL"
+  default: "https://github.com/{{ puppet_forge_username }}/puppet-{{ module_name }}"
+
+# ---------------------------------------------------------------------------
+# Puppet version requirements
+# ---------------------------------------------------------------------------
+min_puppet_version:
+  type: str
+  help: "Minimum supported Puppet version"
+  default: "7.0.0"
+
+max_puppet_version:
+  type: str
+  help: "Maximum Puppet version (exclusive upper bound)"
+  default: "9.0.0"

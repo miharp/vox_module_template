@@ -1,0 +1,47 @@
+# @summary {{ module_summary }}
+#
+# {{ module_description }}
+#
+# @example Include with default parameters
+#   include {{ module_name }}
+#
+# @example Customise via Hiera
+#   {{ module_name }}::package_ensure: 'latest'
+#   {{ module_name }}::service_ensure: 'stopped'
+#   {{ module_name }}::service_enable: false
+#
+# @param manage_package
+#   Whether this module should manage the package resource.
+# @param package_ensure
+#   The ensure value for the managed package (present, absent, latest, or a
+#   specific version string).
+# @param package_name
+#   The name of the package to install.
+# @param manage_config
+#   Whether this module should manage configuration files.
+# @param manage_service
+#   Whether this module should manage the service resource.
+# @param service_ensure
+#   The ensure value for the managed service (running or stopped).
+# @param service_enable
+#   Whether the service should be enabled on boot.
+# @param service_name
+#   The name of the service to manage.
+class {{ module_name }} (
+  Boolean $manage_package = true,
+  String  $package_ensure = 'present',
+  String  $package_name   = '{{ module_name }}',
+  Boolean $manage_config  = true,
+  Boolean $manage_service = true,
+  String  $service_ensure = 'running',
+  Boolean $service_enable = true,
+  String  $service_name   = '{{ module_name }}',
+) {
+  contain {{ module_name }}::install
+  contain {{ module_name }}::config
+  contain {{ module_name }}::service
+
+  Class['{{ module_name }}::install']
+  -> Class['{{ module_name }}::config']
+  ~> Class['{{ module_name }}::service']
+}

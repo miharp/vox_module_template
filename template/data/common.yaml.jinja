@@ -1,0 +1,15 @@
+---
+# Module-layer Hiera data — these are the default parameter values for the
+# {{ module_name }} class.  Override per-node or per-environment in your own
+# Hiera hierarchy.
+
+{{ module_name }}::manage_package: true
+{{ module_name }}::package_ensure: 'present'
+{{ module_name }}::package_name: '{{ module_name }}'
+
+{{ module_name }}::manage_config: true
+
+{{ module_name }}::manage_service: true
+{{ module_name }}::service_ensure: 'running'
+{{ module_name }}::service_enable: true
+{{ module_name }}::service_name: '{{ module_name }}'

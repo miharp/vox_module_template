@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# Puppet version can be pinned via the PUPPET_GEM_VERSION environment variable.
+# Example: PUPPET_GEM_VERSION='~> 8.0' bundle install
+gem 'puppet', ENV.fetch('PUPPET_GEM_VERSION', ['>= {{ min_puppet_version }}', '< {{ max_puppet_version }}'])
+
+gem 'facterdb',              '>= 1.18.0', require: false
+gem 'puppet-lint',           '>= 3.0.0',  require: false
+gem 'puppet-strings',        '>= 4.0.0',  require: false
+gem 'puppetlabs_spec_helper', '>= 6.0.0', require: false
+gem 'rspec-puppet',          '>= 4.0.0',  require: false
+
+group :acceptance do
+  gem 'puppet_litmus',  '>= 1.0.0', require: false
+  gem 'serverspec',     '>= 2.0.0', require: false
+end

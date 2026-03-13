@@ -1,0 +1,15 @@
+# @summary Manages {{ module_name }} package installation
+#
+# This class is called from the {{ module_name }} main class.
+# It is not intended to be used directly.
+#
+# @api private
+class {{ module_name }}::install {
+  assert_private()
+
+  if ${{ module_name }}::manage_package {
+    package { ${{ module_name }}::package_name:
+      ensure => ${{ module_name }}::package_ensure,
+    }
+  }
+}

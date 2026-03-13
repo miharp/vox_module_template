@@ -1,0 +1,23 @@
+# @summary Manages {{ module_name }} configuration
+#
+# This class is called from the {{ module_name }} main class.
+# It is not intended to be used directly.
+#
+# @api private
+class {{ module_name }}::config {
+  assert_private()
+
+  if ${{ module_name }}::manage_config {
+    # Add configuration resources here.
+    #
+    # Example — manage a config file via an EPP template:
+    #
+    # file { "/etc/{{ module_name }}/{{ module_name }}.conf":
+    #   ensure  => file,
+    #   owner   => 'root',
+    #   group   => 'root',
+    #   mode    => '0640',
+    #   content => epp('{{ module_name }}/{{ module_name }}.conf.epp'),
+    # }
+  }
+}

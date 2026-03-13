@@ -1,0 +1,16 @@
+# @summary Manages the {{ module_name }} service
+#
+# This class is called from the {{ module_name }} main class.
+# It is not intended to be used directly.
+#
+# @api private
+class {{ module_name }}::service {
+  assert_private()
+
+  if ${{ module_name }}::manage_service {
+    service { ${{ module_name }}::service_name:
+      ensure => ${{ module_name }}::service_ensure,
+      enable => ${{ module_name }}::service_enable,
+    }
+  }
+}
