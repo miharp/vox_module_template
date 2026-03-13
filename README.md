@@ -34,7 +34,7 @@ Copier stores your answers in `.copier-answers.yml` so updates are seamless.
 
 ## Generated module structure
 
-```
+```text
 <forge_username>-<module_name>/
 ├── manifests/
 │   ├── init.pp          # Main class (public API)
@@ -61,7 +61,7 @@ Copier stores your answers in `.copier-answers.yml` so updates are seamless.
 
 ## Template structure
 
-```
+```text
 vox_module_template/
 ├── copier.yml           # Copier configuration and questions
 ├── README.md            # This file (not copied to generated modules)
