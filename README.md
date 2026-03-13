@@ -46,20 +46,63 @@ copier copy gh:miharp/vox_module_template ./vox-nginx \
 
 ### Run lint and unit tests
 
-Using the [voxbox container](https://github.com/voxpupuli/container-voxbox):
+Using the [voxbox container](https://github.com/voxpupuli/container-voxbox).
+Pull the image once:
 
 ```bash
-# Lint
-docker run --rm -v $PWD:/repo:Z ghcr.io/voxpupuli/voxbox:8 -f /Rakefile lint
+docker pull ghcr.io/voxpupuli/voxbox:8
+```
 
-# Unit tests
+**Lint** — runs `puppet-lint` against all manifests:
+
+```bash
+docker run --rm -v $PWD:/repo:Z ghcr.io/voxpupuli/voxbox:8 -f /Rakefile lint
+```
+
+A clean module produces no output and exits 0.
+
+**Unit tests** — downloads fixture modules, then runs rspec-puppet across
+every OS in `metadata.json`:
+
+```bash
 docker run --rm -v $PWD:/repo:Z ghcr.io/voxpupuli/voxbox:8 -f /Rakefile spec
 ```
 
-Expected spec output:
+Example output for the generated `vox-nginx` module:
 
 ```
+I, [...]  INFO -- : Creating symlink /repo/spec/fixtures/modules/nginx => /repo
+Notice: Preparing to install into /repo/spec/fixtures/modules ...
+Notice: Installing -- do not interrupt ...
+/repo/spec/fixtures/modules
+└── puppetlabs-stdlib (v9.7.0)
+
+...............................................................................................................
+
+Coverage Report:
+
+Total resources:   5
+Touched resources: 3
+Resource coverage: 60.00%
+
+Untouched resources:
+  Package[nginx]
+  Service[nginx]
+
+
+Finished in 0.98 seconds (files took 0.95 seconds to load)
 111 examples, 0 failures
+```
+
+The 111 examples cover every OS family in `metadata.json` (RedHat, CentOS,
+AlmaLinux, Rocky, Debian, Ubuntu) × the full set of `init_spec.rb` contexts:
+compile, class inclusion, ordering, `manage_package => false`, and
+`manage_service => false`.
+
+**Lint + spec in one shot:**
+
+```bash
+docker run --rm -v $PWD:/repo:Z ghcr.io/voxpupuli/voxbox:8 -f /Rakefile lint spec
 ```
 
 ### Update an existing module
