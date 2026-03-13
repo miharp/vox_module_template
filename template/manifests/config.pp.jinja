@@ -7,17 +7,17 @@
 class {{ module_name }}::config {
   assert_private()
 
-  if ${{ module_name }}::manage_config {
-    # Add configuration resources here.
-    #
-    # Example — manage a config file via an EPP template:
-    #
-    # file { "/etc/{{ module_name }}/{{ module_name }}.conf":
-    #   ensure  => file,
-    #   owner   => 'root',
-    #   group   => 'root',
-    #   mode    => '0640',
-    #   content => epp('{{ module_name }}/{{ module_name }}.conf.epp'),
-    # }
-  }
+  # Add configuration resources here, guarded by ${{ module_name }}::manage_config.
+  #
+  # Example:
+  #
+  # if ${{ module_name }}::manage_config {
+  #   file { '/etc/{{ module_name }}/{{ module_name }}.conf':
+  #     ensure  => file,
+  #     owner   => 'root',
+  #     group   => 'root',
+  #     mode    => '0640',
+  #     content => epp('{{ module_name }}/{{ module_name }}.conf.epp'),
+  #   }
+  # }
 }

@@ -6,13 +6,10 @@ source 'https://rubygems.org'
 # Example: PUPPET_GEM_VERSION='~> 8.0' bundle install
 gem 'puppet', ENV.fetch('PUPPET_GEM_VERSION', ['>= {{ min_puppet_version }}', '< {{ max_puppet_version }}'])
 
-gem 'facterdb',              '>= 1.18.0', require: false
-gem 'puppet-lint',           '>= 3.0.0',  require: false
-gem 'puppet-strings',        '>= 4.0.0',  require: false
-gem 'puppetlabs_spec_helper', '>= 6.0.0', require: false
-gem 'rspec-puppet',          '>= 4.0.0',  require: false
+# voxpupuli-test bundles rspec-puppet, rspec-puppet-facts, facterdb, puppet-lint,
+# puppet-strings, and puppetlabs_spec_helper — matches the voxbox container.
+gem 'voxpupuli-test', '>= 13.0.0', require: false
 
 group :acceptance do
-  gem 'puppet_litmus',  '>= 1.0.0', require: false
-  gem 'serverspec',     '>= 2.0.0', require: false
+  gem 'voxpupuli-acceptance', '>= 3.0.0', require: false
 end
